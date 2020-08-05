@@ -1,4 +1,4 @@
-import { DPNames, Dictionary } from '../types/helper';
+import { DPNames, Dictionary } from './helper';
 
 type CustomizerReturnType<
   TObject,

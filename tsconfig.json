@@ -11,6 +11,6 @@
     "declaration": true,
     "types": ["@types/jest", "@types/node"]
   },
-  "include": ["src", "types"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
