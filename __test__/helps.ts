@@ -5,12 +5,14 @@ import {
   defaults,
 } from '../src';
 
-function getObj() {
+export function getObj() {
   return { a: null, d: 'p', e: undefined, foo1: 2, foo2: undefined };
 }
-function getSrc() {
+export function getSrc() {
   return { a: 9, b: undefined, c: null, d: 1, e: 'q' };
 }
+
+const src = getSrc();
 
 export const tests = {
   customDefaults: [
@@ -75,6 +77,20 @@ export const tests = {
         foo1: 2,
         foo2: undefined,
       },
+    },
+    {
+      name: 'object = undefined',
+      process: () => {
+        return defaults(undefined, src, false);
+      },
+      result: src,
+    },
+    {
+      name: 'object = source',
+      process: () => {
+        return defaults(src, src, false);
+      },
+      result: src,
     },
   ],
 };

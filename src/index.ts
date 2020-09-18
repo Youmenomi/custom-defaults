@@ -22,13 +22,15 @@ type CustomizerType<TObjValue, TSrcValue> = (
 ) => TObjValue | TSrcValue;
 
 export function customDefaults<
-  TObject extends Dictionary,
+  TObject extends Dictionary | TSource | undefined,
   TSource extends Dictionary
 >(
   customizer: CustomizerType<TObject, TSource>,
   object: TObject,
   source: TSource
 ) {
+  if (!object || object === source) return source;
+
   const temp = object as { [key in keyof TSource]: any };
   (Object.keys(source) as (keyof TSource)[]).forEach((key) => {
     temp[key] = customizer(temp[key], source[key]);
@@ -87,11 +89,11 @@ type NonNullableUnionObject<
   NonNullableCustomizerReturnType<TObject, TSource>;
 
 export function defaults<
-  TObject extends Dictionary,
+  TObject extends Dictionary | undefined,
   TSource extends Dictionary
 >(object: TObject, source: TSource): NullableUnionObject<TObject, TSource>;
 export function defaults<
-  TObject extends Dictionary,
+  TObject extends Dictionary | undefined,
   TSource extends Dictionary,
   TNullable extends boolean
 >(
@@ -102,7 +104,7 @@ export function defaults<
   ? NullableUnionObject<TObject, TSource>
   : NonNullableUnionObject<TObject, TSource>;
 export function defaults(
-  object: Dictionary,
+  object: Dictionary | undefined,
   source: Dictionary,
   nullable = true
 ) {
