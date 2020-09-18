@@ -3,10 +3,10 @@
   "version": "0.0.2",
   "description": "",
   "keywords": [
+    "typescript",
     "defaults",
     "customizer",
-    "null",
-    "typescript"
+    "nullable"
   ],
   "main": "dist/cjs/custom-defaults.cjs.js",
   "module": "dist/esm/custom-defaults.esm.js",
@@ -16,10 +16,12 @@
   ],
   "scripts": {
     "test": "jest",
+    "ts:check": "tsc --noEmit -p tsconfig.build.json",
     "build:js": "rollup -c",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build": "tsc --noEmit && eslint --ext .ts,.js ./src && npm run build:js && npm run build:types",
-    "np": "np"
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build": "npm run ts:check && eslint --ext .ts,.js ./src && npm run build:js && npm run build:types",
+    "release": "np",
+    "version": "npm run build"
   },
   "lint-staged": {
     "*.{ts,js}": [
@@ -45,30 +47,26 @@
   "homepage": "https://github.com/Youmenomi/custom-defaults#readme",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-decorators": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
-    "@nuxtjs/eslint-config-typescript": "^2.0.0",
-    "@rollup/plugin-babel": "^5.0.4",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.1.0",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.1.0",
-    "eslint": "^7.4.0",
+    "babel-jest": "^26.3.0",
+    "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.2.5",
-    "jest": "^26.1.0",
-    "lint-staged": "^10.2.11",
-    "np": "^6.3.1",
-    "prettier": "^2.0.5",
-    "rollup": "^2.21.0",
-    "rollup-plugin-filesize": "^9.0.2",
-    "rollup-plugin-terser": "^6.1.0",
-    "ts-jest": "^26.1.1",
-    "typescript": "^3.9.6"
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.4.0",
+    "np": "^6.5.0",
+    "prettier": "^2.1.2",
+    "rollup": "^2.27.1",
+    "rollup-simple-configer": "^0.0.2",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.2"
   },
   "dependencies": {}
 }

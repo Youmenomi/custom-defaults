@@ -7,10 +7,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
-    "declarationDir": "dist/types",
-    "declaration": true,
     "types": ["@types/jest", "@types/node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "__test__"]
 }
