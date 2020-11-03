@@ -1,4 +1,4 @@
-import { tests, getObj, getSrc } from './helps';
+import { tests, getObj, getSrc } from './helper';
 import { defaults } from '../src';
 
 describe('custom-defaults', () => {
@@ -34,5 +34,15 @@ describe('custom-defaults', () => {
     option2.e as string;
     option2.foo1 as number;
     option2.foo2 as undefined;
+
+    function option3(option?: { x: number; y?: string }) {
+      const opt1 = defaults(option, getSrc());
+      opt1.x as number;
+      opt1.y as string;
+      const opt2 = defaults(option, getSrc(), false);
+      opt2.x as number;
+      opt2.y as string;
+    }
+    option3;
   });
 });

@@ -17,7 +17,7 @@ export default [].concat(
   build(
     input,
     {
-      file: 'dist/umd/custom-defaults.umd.js',
+      file: `dist/umd/${pkg.name}.umd.js`,
       format: 'umd',
       name: 'customDefaults',
     },

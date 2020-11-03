@@ -91,7 +91,10 @@ type NonNullableUnionObject<
 export function defaults<
   TObject extends Dictionary | undefined,
   TSource extends Dictionary
->(object: TObject, source: TSource): NullableUnionObject<TObject, TSource>;
+>(
+  object: TObject,
+  source: TSource
+): NullableUnionObject<NonNullable<TObject>, TSource>;
 export function defaults<
   TObject extends Dictionary | undefined,
   TSource extends Dictionary,
@@ -101,8 +104,8 @@ export function defaults<
   source: TSource,
   nullable: TNullable
 ): TNullable extends true
-  ? NullableUnionObject<TObject, TSource>
-  : NonNullableUnionObject<TObject, TSource>;
+  ? NullableUnionObject<NonNullable<TObject>, TSource>
+  : NonNullableUnionObject<NonNullable<TObject>, TSource>;
 export function defaults(
   object: Dictionary | undefined,
   source: Dictionary,
