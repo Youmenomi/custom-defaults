@@ -90,22 +90,46 @@ type NonNullableUnionObject<
 
 export function defaults<
   TObject extends Dictionary | undefined,
-  TSource extends Dictionary
+  TSource extends Dictionary,
+  TNullable extends true | undefined
 >(
   object: TObject,
-  source: TSource
-): NullableUnionObject<NonNullable<TObject>, TSource>;
+  source: TSource,
+  nullable?: TNullable
+): NonNullable<TObject> extends never
+  ? TSource
+  : Extract<TObject, undefined | null> extends never
+  ? NullableUnionObject<TObject, TSource>
+  :
+      | NullableUnionObject<NonNullable<TObject>, TSource>
+      | (TSource &
+          {
+            [key in keyof Omit<
+              NonNullable<TObject>,
+              DPNames<NonNullable<TObject>, TSource>
+            >]: undefined;
+          });
 export function defaults<
   TObject extends Dictionary | undefined,
   TSource extends Dictionary,
-  TNullable extends boolean
+  TNullable extends false
 >(
   object: TObject,
   source: TSource,
   nullable: TNullable
-): TNullable extends true
-  ? NullableUnionObject<NonNullable<TObject>, TSource>
-  : NonNullableUnionObject<NonNullable<TObject>, TSource>;
+): NonNullable<TObject> extends never
+  ? TSource
+  : Extract<TObject, undefined | null> extends never
+  ? NonNullableUnionObject<TObject, TSource>
+  :
+      | NonNullableUnionObject<NonNullable<TObject>, TSource>
+      | (TSource &
+          {
+            [key in keyof Omit<
+              NonNullable<TObject>,
+              DPNames<NonNullable<TObject>, TSource>
+            >]: undefined;
+          });
 export function defaults(
   object: Dictionary | undefined,
   source: Dictionary,

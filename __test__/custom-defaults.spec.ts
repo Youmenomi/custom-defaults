@@ -35,13 +35,28 @@ describe('custom-defaults', () => {
     option2.foo1 as number;
     option2.foo2 as undefined;
 
-    function option3(option?: { x: number; y?: string }) {
+    function option3(option?: { x: number; y?: string; a: null }) {
       const opt1 = defaults(option, getSrc());
-      opt1.x as number;
-      opt1.y as string;
+      if (opt1.x === undefined) {
+        opt1.x as undefined;
+        opt1.y as undefined;
+        opt1.a as number;
+      } else {
+        opt1.x as number;
+        opt1.y as string | undefined;
+        opt1.a as null;
+      }
+
       const opt2 = defaults(option, getSrc(), false);
-      opt2.x as number;
-      opt2.y as string;
+      if (opt2.x === undefined) {
+        opt2.x as undefined;
+        opt2.y as undefined;
+        opt2.a as number;
+      } else {
+        opt2.x as number;
+        opt2.y as string | undefined;
+        opt2.a as number;
+      }
     }
     option3;
   });
